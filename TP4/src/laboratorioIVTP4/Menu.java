@@ -51,7 +51,8 @@ public class Menu extends JFrame {
 		JButton btnEjercicio_1 = new JButton("Ejercicio 1");
 		btnEjercicio_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				Ejercicio1 e1 = new Ejercicio1();
+				e1.setVisible(true);
 			}
 		});
 		btnEjercicio_1.setBounds(432, 158, 144, 57);
@@ -63,7 +64,8 @@ public class Menu extends JFrame {
 		contentPane.add(btnEjercicio_2);
 		btnEjercicio_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				Ejercicio2 e2 = new Ejercicio2();
+				e2.setVisible(true);
 			}
 		});
 		
@@ -73,7 +75,8 @@ public class Menu extends JFrame {
 		contentPane.add(btnEjercicio_3);
 		btnEjercicio_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				Ejercicio3 e3 = new Ejercicio3();
+				e3.setVisible(true);
 			}
 		});
 	
