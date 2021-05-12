@@ -25,19 +25,6 @@ public class Ejercicio1 extends JFrame {
 	private JTextField tfFecha_Nacimiento;
 	private JTextArea taDatos;
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Ejercicio1 frame = new Ejercicio1();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public Ejercicio1() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
