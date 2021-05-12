@@ -89,15 +89,6 @@ public class Ejercicio1 extends JFrame {
 		contentPane.add(tfApellido);
 		
 		tfTelefono = new JTextField();
-		tfTelefono.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				//Me fijo si el tamaño del numero del telefono es el correcto
-				if(!(tfTelefono.getText().length() <= 10))  {
-					JOptionPane.showMessageDialog(rootPane, "El Telefono no debe tener mas de 10 numeros");
-				}
-			}
-		});
 		tfTelefono.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -150,6 +141,10 @@ public class Ejercicio1 extends JFrame {
 						tfFecha_Nacimiento.setText(null);
 						tfFecha_Nacimiento.setBackground(Color.white);
 					}break;
+					case 7:{
+						tfTelefono.setText(null);
+						tfTelefono.setBackground(Color.white);
+					}break;
 				}
 				// Hay un problemita cuando un campo tiene texto y los demas no salta el mensaje de error
 				// pero limpia todos los campos incluido ese en cuestion entonces como solucion podria 
@@ -197,6 +192,10 @@ public class Ejercicio1 extends JFrame {
 			tfFecha_Nacimiento.setBackground(Color.red);
 			JOptionPane.showMessageDialog(rootPane, "El campo Fecha de Nacimineto esta vacio");
 			return 6;
+		}
+		if(!(tfTelefono.getText().length() <= 10))  {
+			JOptionPane.showMessageDialog(rootPane, "El Telefono no debe tener mas de 10 numeros");
+			return 7;
 		}
 		return 1;
 	}
