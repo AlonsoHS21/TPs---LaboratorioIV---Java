@@ -13,7 +13,11 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class Ejercicio1 extends JFrame {
 
@@ -24,6 +28,19 @@ public class Ejercicio1 extends JFrame {
 	private JTextField tfTelefono;
 	private JTextField tfFecha_Nacimiento;
 	private JTextArea taDatos;
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Ejercicio1 frame = new Ejercicio1();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 	
 	public Ejercicio1() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -72,6 +89,22 @@ public class Ejercicio1 extends JFrame {
 		contentPane.add(tfApellido);
 		
 		tfTelefono = new JTextField();
+		tfTelefono.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				//Me fijo si el tamaño del numero del telefono es el correcto
+				if(!(tfTelefono.getText().length() <= 10))  {
+					JOptionPane.showMessageDialog(rootPane, "El Telefono no debe tener mas de 10 numeros");
+				}
+			}
+		});
+		tfTelefono.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char num = e.getKeyChar();
+				CheckOnlyNumbers(num,e);
+			}
+		});
 		tfTelefono.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tfTelefono.setColumns(10);
 		tfTelefono.setBounds(295, 228, 268, 27);
@@ -86,11 +119,38 @@ public class Ejercicio1 extends JFrame {
 		JButton btnMostrar = new JButton("Mostrar");
 		btnMostrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(ComprobarCamposVacios()) {
-					MuestraDatos();
-					LimpiaTodosTextField();
+				switch(ComprobarCamposVacios()){
+					case 1:{
+						JOptionPane.showMessageDialog(rootPane, "Todos los campos estan correctos");
+						MuestraDatos();
+					}break;
+					case 2:{
+						tfNombre.setText(null);
+						tfNombre.setBackground(Color.white);
+						tfApellido.setText(null);
+						tfApellido.setBackground(Color.white);
+						tfTelefono.setText(null);
+						tfTelefono.setBackground(Color.white);
+						tfFecha_Nacimiento.setText(null);
+						tfFecha_Nacimiento.setBackground(Color.white);
+					}break;
+					case 3:{
+						tfNombre.setText(null);
+						tfNombre.setBackground(Color.white);
+					}break;
+					case 4:{
+						tfApellido.setText(null);
+						tfApellido.setBackground(Color.white);
+					}break;
+					case 5:{
+						tfTelefono.setText(null);
+						tfTelefono.setBackground(Color.white);
+					}break;
+					case 6:{
+						tfFecha_Nacimiento.setText(null);
+						tfFecha_Nacimiento.setBackground(Color.white);
+					}break;
 				}
-				LimpiaTodosTextField();
 				// Hay un problemita cuando un campo tiene texto y los demas no salta el mensaje de error
 				// pero limpia todos los campos incluido ese en cuestion entonces como solucion podria 
 				// hacer que ComprobarCamposVacios() sea un int y cada if devuelva un numero entonces
@@ -108,7 +168,7 @@ public class Ejercicio1 extends JFrame {
 		taDatos.setBounds(662, 111, 236, 201);
 		contentPane.add(taDatos);
 	}
-	public boolean ComprobarCamposVacios() {
+	public int ComprobarCamposVacios() {
 		if(tfNombre.getText().isEmpty() && tfApellido.getText().isEmpty() && tfTelefono.getText().isEmpty()
 				&& tfFecha_Nacimiento.getText().isEmpty()) {
 			tfNombre.setBackground(Color.red);
@@ -116,44 +176,41 @@ public class Ejercicio1 extends JFrame {
 			tfTelefono.setBackground(Color.red);
 			tfFecha_Nacimiento.setBackground(Color.red);
 			JOptionPane.showMessageDialog(rootPane, "Ningun campo puede quedar vacio");
-			return false;
+			return 2;
 		}
 		else if(tfNombre.getText().isEmpty()) {
 			tfNombre.setBackground(Color.red);
 			JOptionPane.showMessageDialog(rootPane, "El campo Nombre esta vacio");
-			return false;
+			return 3;
 		}
 		else if(tfApellido.getText().isEmpty()) {
 			tfApellido.setBackground(Color.red);
 			JOptionPane.showMessageDialog(rootPane, "El campo Apellido esta vacio");
-			return false;
+			return 4;
 		}
 		else if(tfTelefono.getText().isEmpty()) {
 			tfTelefono.setBackground(Color.red);
 			JOptionPane.showMessageDialog(rootPane, "El campo Telefono esta vacio");
-			return false;
+			return 5;
 		}
 		else if(tfFecha_Nacimiento.getText().isEmpty()) {
 			tfFecha_Nacimiento.setBackground(Color.red);
 			JOptionPane.showMessageDialog(rootPane, "El campo Fecha de Nacimineto esta vacio");
-			return false;
+			return 6;
 		}
-		return true;
+		return 1;
+	}
+	public void CheckOnlyNumbers(char caracter,KeyEvent e) {
+		if(Character.isLetter(caracter)) { //if variable num is not a number
+			getToolkit().beep(); //Get a sound -> si esta comentado se bugea el sonido de error
+			e.consume(); //Funciona para no llamar a mas eventos como el KeyListener -> si esta comentado no borra la tecla erronea ingresada
+			JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+		}
 	}
 	public void MuestraDatos() {
 		taDatos.setText("Nombre: " + tfNombre.getText() + "\n"
 				+ "Apellido: " + tfApellido.getText() + "\n"
 				+ "Telefono: " + tfTelefono.getText() + "\n"
 				+ "Fecha de Nacimiento: " + tfFecha_Nacimiento.getText());
-	}
-	public void LimpiaTodosTextField() {
-		tfNombre.setText(null);
-		tfNombre.setBackground(Color.white);
-		tfApellido.setText(null);
-		tfApellido.setBackground(Color.white);
-		tfTelefono.setText(null);
-		tfTelefono.setBackground(Color.white);
-		tfFecha_Nacimiento.setText(null);
-		tfFecha_Nacimiento.setBackground(Color.white);
 	}
 }
