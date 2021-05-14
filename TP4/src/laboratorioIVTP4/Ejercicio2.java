@@ -1,13 +1,11 @@
 package laboratorioIVTP4;
 
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -31,19 +29,6 @@ public class Ejercicio2 extends JFrame {
 	private JButton btnSalir;
 	private JComboBox<String> cbTps;
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Ejercicio2 frame = new Ejercicio2();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public Ejercicio2() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		

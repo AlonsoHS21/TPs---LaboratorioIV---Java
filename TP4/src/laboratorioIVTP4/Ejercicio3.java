@@ -1,7 +1,6 @@
 package laboratorioIVTP4;
 
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,22 +25,10 @@ public class Ejercicio3 extends JFrame {
 	private JRadioButton rdbtnWindows;
 	private JRadioButton rdbtnMac;
 	private JRadioButton rdbtnLinux;
+	private ButtonGroup grupo1;
 	private JCheckBox chckbxProgramacion;
 	private JCheckBox chckbxAdministracion;
 	private JCheckBox chckbxDiseno_Grafico;
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Ejercicio3 frame = new Ejercicio3();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	public Ejercicio3() {
 		setTitle("Seleccion multiple");
@@ -113,7 +100,7 @@ public class Ejercicio3 extends JFrame {
 		
 		// --------- Los agrupamos para que no se puedan elegir mas de uno  --------------
 		
-		ButtonGroup grupo1 = new ButtonGroup();
+		grupo1 = new ButtonGroup();
 		grupo1.add(rdbtnWindows);
 		grupo1.add(rdbtnMac);
 		grupo1.add(rdbtnLinux);
@@ -144,22 +131,74 @@ public class Ejercicio3 extends JFrame {
 	}
 	public void ComprobarCampos() {
 		//No hace falta los else en los if porque solo se puede elegir 1 en los rdbtn
-		String sistema = "";
-		if(rdbtnWindows.isSelected()) {
-			sistema = rdbtnWindows.getText();
-		}
-		else if(rdbtnMac.isSelected()) {
-			sistema = rdbtnMac.getText();
-		}
-		else if(rdbtnLinux.isSelected()) {
-			sistema = rdbtnLinux.getText();
+		String sistemaOperativo = ComprobarRB();
+		int horas = ComprobarHoras();
+		String especialidad = ComprobarChbx(); 
+		if(!(sistemaOperativo.equals(""))) { //Si no eligio un RadioButton no ingresa
+			if(!(especialidad.equals(""))) {
+				if(horas != 0) {
+					JOptionPane.showMessageDialog(rootPane,sistemaOperativo + especialidad + horas);
+				}
+				else {
+					JOptionPane.showMessageDialog(rootPane, "Ingresa las horas trabajadas");
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(rootPane, "Ingresa al menos una especialidad");
+			}
 		}
 		else {
 			JOptionPane.showMessageDialog(rootPane, "Elija un Sistema Operativo");
 		}
-		if(tfCantidad_Horas.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(rootPane, "Indique la cantidad de horas");
-		}
+		LimpiarCampos();
 	}
-	
+	public String ComprobarRB() {
+		String sistema = "";
+		
+		if(rdbtnWindows.isSelected()) {
+			sistema = rdbtnWindows.getText() + " - ";
+			return sistema;
+		}
+		else if(rdbtnMac.isSelected()) {
+			sistema = rdbtnMac.getText() + " - ";
+			return sistema;
+		}
+		else if(rdbtnLinux.isSelected()) {
+			sistema = rdbtnLinux.getText() + " - ";
+			return sistema;
+		}
+		return sistema;
+	}
+	public int ComprobarHoras() {
+		int horasT = 0;
+		
+		if(!(tfCantidad_Horas.getText().isEmpty())) {
+			return Integer.parseInt(tfCantidad_Horas.getText());
+		}
+		return horasT;
+	}
+	public String ComprobarChbx() {
+		String especialidad = "";
+		
+		if(chckbxProgramacion.isSelected()) {
+			especialidad += chckbxProgramacion.getText() + " - ";
+		}
+		if(chckbxAdministracion.isSelected()) {
+			especialidad += chckbxAdministracion.getText() + " - ";
+		}
+		if(chckbxDiseno_Grafico.isSelected()) {
+			especialidad += chckbxDiseno_Grafico.getText() + " - ";
+		}
+		return especialidad;
+		
+	}
+	public void LimpiarCampos() {
+		grupo1.clearSelection(); //Limpia la seleccion del radioButton
+		
+		chckbxProgramacion.setSelected(false);
+		chckbxAdministracion.setSelected(false);
+		chckbxDiseno_Grafico.setSelected(false);
+		
+		tfCantidad_Horas.setText(null);
+	}
 }

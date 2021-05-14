@@ -2,7 +2,6 @@ package laboratorioIVTP4;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,8 +15,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 public class Ejercicio1 extends JFrame {
 
@@ -28,19 +25,6 @@ public class Ejercicio1 extends JFrame {
 	private JTextField tfTelefono;
 	private JTextField tfFecha_Nacimiento;
 	private JTextArea taDatos;
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Ejercicio1 frame = new Ejercicio1();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	
 	public Ejercicio1() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -146,12 +130,6 @@ public class Ejercicio1 extends JFrame {
 						tfTelefono.setBackground(Color.white);
 					}break;
 				}
-				// Hay un problemita cuando un campo tiene texto y los demas no salta el mensaje de error
-				// pero limpia todos los campos incluido ese en cuestion entonces como solucion podria 
-				// hacer que ComprobarCamposVacios() sea un int y cada if devuelva un numero entonces
-				// en el actionPerformed de Mostrar podria hacer switch y creando un metodo que reciba un
-				// JTextFiel entonce borra el texto y setea en blanco el JTextField al que hacer
-				// referencia el numero
 			}
 		});
 		btnMostrar.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -161,6 +139,7 @@ public class Ejercicio1 extends JFrame {
 		taDatos = new JTextArea();
 		taDatos.setFont(new Font("Tahoma", Font.BOLD, 14));
 		taDatos.setBounds(662, 111, 236, 201);
+		taDatos.setEditable(false);
 		contentPane.add(taDatos);
 	}
 	public int ComprobarCamposVacios() {
