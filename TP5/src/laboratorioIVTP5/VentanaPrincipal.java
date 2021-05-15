@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -56,10 +58,25 @@ public class VentanaPrincipal extends JFrame {
 		
 		JMenuItem mntmAgregar = new JMenuItem("Agregar");
 		mnPeliculas.add(mntmAgregar);
+		mntmAgregar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				VentanaAgregar va = new VentanaAgregar();
+				va.setVisible(true);
+			}
+		});
 		
 		JMenuItem mntmListar = new JMenuItem("Listar");
 		mnPeliculas.add(mntmListar);
-		
-		
+		mntmListar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				VentanaListar vl = new VentanaListar();
+				vl.setVisible(true);
+			}
+			
+		});
 	}
 }
