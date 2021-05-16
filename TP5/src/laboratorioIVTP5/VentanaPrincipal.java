@@ -37,8 +37,8 @@ public class VentanaPrincipal extends JFrame {
 		
 		Toolkit miVentana = Toolkit.getDefaultToolkit();
 		Dimension tamanoVentana = miVentana.getScreenSize();
-		setSize(tamanoVentana.width/2, tamanoVentana.height/2); 
-		setLocation(tamanoVentana.width/4,tamanoVentana.height/4); 
+		setSize(550,350);
+		setLocation(tamanoVentana.width/4,tamanoVentana.height/4);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -56,9 +56,11 @@ public class VentanaPrincipal extends JFrame {
 		mntmAgregar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				VentanaAgregar va = new VentanaAgregar();
-				va.setVisible(true);
+				contentPane.removeAll();
+				PanelAgregarPeliculas pap = new PanelAgregarPeliculas();
+				contentPane.add(pap);
+				contentPane.repaint();
+				contentPane.revalidate();
 			}
 		});
 		
@@ -67,9 +69,11 @@ public class VentanaPrincipal extends JFrame {
 		mntmListar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				VentanaListar vl = new VentanaListar();
-				vl.setVisible(true);
+				contentPane.removeAll();
+				PanelListarPeliculas plp = new PanelListarPeliculas();
+				contentPane.add(plp);
+				contentPane.repaint();
+				contentPane.revalidate();
 			}
 		});
 		
