@@ -45,13 +45,8 @@ public class VentanaPrincipal extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(null);
-		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 944, 21);
-		panel.add(menuBar);
+		setJMenuBar(menuBar);
 		
 		JMenu mnPeliculas = new JMenu("Peliculas");
 		menuBar.add(mnPeliculas);
@@ -60,7 +55,7 @@ public class VentanaPrincipal extends JFrame {
 		mnPeliculas.add(mntmAgregar);
 		mntmAgregar.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				VentanaAgregar va = new VentanaAgregar();
 				va.setVisible(true);
@@ -71,12 +66,13 @@ public class VentanaPrincipal extends JFrame {
 		mnPeliculas.add(mntmListar);
 		mntmListar.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				VentanaListar vl = new VentanaListar();
 				vl.setVisible(true);
 			}
-			
 		});
+		
+
 	}
 }
